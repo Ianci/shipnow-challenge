@@ -1,0 +1,11 @@
+.grid__container {
+    display: grid;
+    width: fit-content;
+    margin: 50px auto;
+    padding: 3px;
+    &-cell {
+        &:hover {
+            background-color: #F7ECE1;
+        }
+    }
+}
