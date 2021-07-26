@@ -1,0 +1,18 @@
+.button {
+    outline: none;
+    border: none;
+    margin: 15px;
+    width: 50px;
+    color: #ffff;
+    padding: 15px;
+    background: #FF3864;
+    border-radius: 20px;
+    transition: all 1s ease-out;
+    cursor: pointer;
+    &:hover{
+        background-image: linear-gradient(
+            45deg
+            ,#ef69ad
+            ,#FF3864);
+    }
+}

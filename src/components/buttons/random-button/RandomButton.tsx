@@ -1,12 +1,11 @@
 export interface IRandomButtonProps {
-    isRunning: boolean;
-    onClickStarted: () => void;
+    onClickRandomButton: () => void;
 }
-const RandomButton = ({isRunning, onClickStarted}: IRandomButtonProps) => {
+const RandomButton = ({onClickRandomButton}: IRandomButtonProps) => {
     return (
         <button
         className="button"
-        onClick={() => onClickStarted()}
+        onClick={() => onClickRandomButton()}
         >
             Random
         </button>
