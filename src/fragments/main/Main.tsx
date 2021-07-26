@@ -6,14 +6,14 @@ import RandomButton from '../../components/buttons/random-button/RandomButton';
 import IntervalInput from '../../components/interval-input/IntervalInput';
 import GenerationCount from '../../components/generation-count/GenerationCount';
 import SaveButton from '../../components/buttons/save-button/SaveButton';
+import StepButton from '../../components/buttons/step-button/StepButton';
 
 
 const Main = () => {
   const { grid, isRunning, speed, generationCount,onClickStarted, 
     onClickCell, onClickResetButton, onClickRandomButton,
-    handleChangeInterval, onClickSaveButton, 
+    handleChangeInterval, onClickSaveButton, onClickStepButton
   } = useMainController();
-  console.log(grid)
  
   return (
     <div className="main">
@@ -22,6 +22,7 @@ const Main = () => {
         <div className="buttons">
           <StartButton isRunning={isRunning} onClickStarted={onClickStarted}/>
           <ResetButton onClickResetButton={onClickResetButton}/>
+          <StepButton onClickStepButton={onClickStepButton} />
           <RandomButton onClickRandomButton={onClickRandomButton}/>
         </div>
           <IntervalInput speed={speed} handleChangeInterval={handleChangeInterval}/>

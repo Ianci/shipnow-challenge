@@ -1,7 +1,7 @@
 import {
   BrowserRouter as Router, Route, Switch,
 } from 'react-router-dom';
-import Main from '../fragments/main/main.fragment';
+import Main from '../fragments/main/Main';
 
 const AppRoutes = () => (
   <Router>

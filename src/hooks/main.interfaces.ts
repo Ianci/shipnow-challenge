@@ -8,5 +8,6 @@ export interface IUseMainControllerOutput {
     onClickResetButton: () => void;
     onClickRandomButton: () => void;
     handleChangeInterval: (e: any) => void;
-    onClickSaveButton: () => void
+    onClickSaveButton: () => void;
+    onClickStepButton: () => void;
 }
