@@ -5,6 +5,7 @@ export interface IStartButtonProps {
 const StartButton = ({isRunning, onClickStarted}: IStartButtonProps) => {
     return (
         <button
+        className="button"
         onClick={() => onClickStarted()}
         >
             {isRunning ? 'Stop' : 'Start'}
