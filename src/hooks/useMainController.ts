@@ -11,7 +11,6 @@ export const useMainController = (): IUseMainControllerOutput => {
  
 
   //Creando un multidimensional array y guardándolo en un state
- 
  const generateEmptyGrid = (): number[][] => {
   const rowsArray= [];
   for (let i = 0; i < numRows; i++) {
@@ -25,24 +24,23 @@ export const useMainController = (): IUseMainControllerOutput => {
   });
 
   
-  //Generate random grid
+  //Generando random grid
    const generateRandomGrid = (): number[][] => {
     const rowsArray= [];
     for (let i = 0; i < numRows; i++) {
       rowsArray.push(Array.from(Array(numCols), () => Math.random() > 0.5 ? 1 : 0));
     }
-    console.log(rowsArray)
     return rowsArray as number[][];
   };
 
   //LocalStorage grid
+  //Al renderizar nuestra app se fija si hay un grid guardado en el localStorage y lo guarda en nuestro state
   useEffect(() => {
     const localStorageGrid = localStorage.getItem('grid');
     if(localStorageGrid){
       setGrid(JSON.parse(localStorageGrid))
     }
   }, [])
-
 
   //Como estamos ejecutando la función una única vez y necesitamos tener 
   //actualizado en todo momento nuestro isRunning que en este caso es nuestra Kill condition
@@ -57,6 +55,7 @@ export const useMainController = (): IUseMainControllerOutput => {
     setGrid(userGrid);
   }
 
+  //Lógica del juego
   const handleStartGame = useCallback((grid) => {
     //
     if(!isRunningRef.current){
@@ -77,7 +76,7 @@ export const useMainController = (): IUseMainControllerOutput => {
             console.log(surrounderCells)
           };
         });
-        //Game rules
+        //Reglas
         if ( surrounderCells < 2 || surrounderCells > 3){
           newGrid[i][j] = 0
         } else if (grid[i][j] === 0 && surrounderCells === 3) {
@@ -88,37 +87,46 @@ export const useMainController = (): IUseMainControllerOutput => {
     setGrid(newGrid)
   }, [])
 
- /*  const isOneIntheArray = (element: number) => element > 0
-  const handleStopCount = (grid: number[][]) => {
-    grid.forEach((x) => {
-      x.map((item) => {
-        console.table(item)
-      })
-    })
-  /*   console.log(isTrue) */
- /*  }  */
-  //Allow user change the intervals
+  
+  //Permitir al usuario cambiar el intervalo de tiempo
   const handleChangeInterval = (e: any) => {
     setSpeed(Number(e.target.value))
   }
 
-  //Generation count
+  //Contador
   const handleGenerationCount = () => {
     if(isRunningRef.current){
       setGenerationCount(generationCount + 1)
     }
   }
+  //useInterval hook para iniciar el juego
+  //1. Empieza el juego
+  //2. Ejecuta la función que maneja el contador
+  //3. Vuelve a ejecutar las funciones que están dentro de la callback fn del hook en el delay establecido por defecto
+  //O bien en el intervalo en ms que el usuario quiera
   useInterval(() => {
     handleStartGame(grid)
     handleGenerationCount()
   }, speed)
 
+ 
   //Start grid
   const onClickStarted = () => {
     setIsRunning(!isRunning)
     if(!isRunning){
       isRunningRef.current = true
     }
+  }
+  //Step btn
+  //Cambia el isRunning a true y vuelve a false el mismo intervalo de tiempo que la función se ejecutaría normalmente
+  const onClickStepButton = () => {
+    setIsRunning(!isRunning)
+    if(!isRunning){
+      isRunningRef.current = true
+    } 
+    setTimeout(() => {
+      setIsRunning(false)
+    }, speed)
   }
   //Random grid
   const onClickRandomButton = () => {
@@ -146,6 +154,7 @@ export const useMainController = (): IUseMainControllerOutput => {
     onClickResetButton,
     onClickRandomButton,
     onClickSaveButton,
+    onClickStepButton,
     handleChangeInterval,
   };
 }
