@@ -1,11 +1,15 @@
 import { numCols } from "../../assets/constants"
 
 
+
+
 interface IGridComponentProps {
     grid: number[][]
     onClickCell: (mappedGrid: number[][], i: number, k: number) => void
 }
 const GridComponent = ({grid, onClickCell} :IGridComponentProps) => {
+    const gridFromLocalStorage: number[][] = JSON.parse(localStorage.getItem('grid') as string)
+    console.log(gridFromLocalStorage)
     return (
         <div className="grid__container"
         style={{ gridTemplateColumns: `repeat(${numCols}, 25px)`,}}
