@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,600;1,400&display=swap');
-
+@import './mixins.scss';
 *,
 *::after,
 *::before{
@@ -31,6 +31,20 @@ body
 .options {
     display: inline-flex;
     justify-content: space-between;
-    width: 100% * 0.5;
+    width: 100% * 0.6;
     align-items: center;
+    @include respond(desktop){
+        width: 100% * 0.9;
+    }
+    @include respond(tab){
+        width: 100% ;
+    }
+}
+.buttons {
+    @include respond(desktop){
+        width: 100% * 0.6;
+    }
+    @include respond(tab){
+        width: 100% * 0.6 ;
+    }
 }
