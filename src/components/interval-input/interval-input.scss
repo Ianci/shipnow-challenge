@@ -1,0 +1,34 @@
+.interval__container {
+    &-label {
+        color: white;
+        font-size: 1.2rem;
+        margin-right: 5px;
+        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    }
+    &-input {
+        &::content {
+            color: white;
+            font-size: 1.2rem;
+        }
+        color: white;
+        font-size: 1.2rem;
+        padding-left: 5px;
+        width: 15%;
+        background: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid orangered;
+    }
+}
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.asd {
+    width: 100%;
+    height: 100%;
+}
