@@ -1,3 +1,4 @@
+import { colors } from "../../assets/colors"
 import { numCols } from "../../assets/constants"
 
 
@@ -8,8 +9,6 @@ interface IGridComponentProps {
     onClickCell: (mappedGrid: number[][], i: number, k: number) => void
 }
 const GridComponent = ({grid, onClickCell} :IGridComponentProps) => {
-    const gridFromLocalStorage: number[][] = JSON.parse(localStorage.getItem('grid') as string)
-    console.log(gridFromLocalStorage)
     return (
         <div className="grid__container"
         style={{ gridTemplateColumns: `repeat(${numCols}, 25px)`,}}
@@ -22,12 +21,12 @@ const GridComponent = ({grid, onClickCell} :IGridComponentProps) => {
                     onClick={() => onClickCell(grid,i,k)}
                         style={{
                             borderRadius: '50%',
-                            margin: '3px',
-                            width: 15,
-                            height: 15,
+                            margin: '2.5px',
+                            width: 12,
+                            height: 12,
                             cursor: 'pointer',
-                            backgroundColor: grid[i][k] ? "#FFFFFF" : undefined,
-                            border: "1px solid #FFFFFF",
+                            backgroundColor: grid[i][k] ? colors.white : undefined,
+                            border: `1px solid ${colors.white}`,
                             }}
                     />
                 ))
