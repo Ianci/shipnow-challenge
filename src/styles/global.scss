@@ -42,9 +42,9 @@ body
 }
 .buttons {
     @include respond(desktop){
-        width: 100% * 0.6;
+        width: 100% * 0.4;
     }
     @include respond(tab){
-        width: 100% * 0.6 ;
+        width: 100% * 0.4 ;
     }
 }
