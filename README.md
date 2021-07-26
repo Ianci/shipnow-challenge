@@ -3,10 +3,9 @@
 **El juego de la vida**
 
 Desarrollado con:
-# React
-
-# Typescript
-# Sass
+-React
+-Typescript
+-Sass
 
 
 ### Una vez clonado el repositorio seguir los siguientes pasos
@@ -14,7 +13,8 @@ Desarrollado con:
 1. yarn install
 2. yarn start
 
-## Link de la app deployeada:
+### Link de la app deployeada:
+https://gameoflife-shipnowchallenge.netlify.app/
 
 
 
