@@ -1,12 +1,12 @@
 interface IGenerationCountProps {
-  generateCount: number
+  generationCount: number
 }
 
-const GenerationCount = (props: IGenerationCountProps) => (
+const GenerationCount = ({generationCount}: IGenerationCountProps) => (
   <div className="generation__count">
-    <h2>
-      Generation: #
-      {props.generateCount}
+    <h2 className="generation__count-h2">
+      Generation: # {''}
+      {generationCount}
     </h2>
   </div>
 );
