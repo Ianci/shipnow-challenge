@@ -5,22 +5,28 @@ import ResetButton from '../../components/buttons/reset-button/ResetButton';
 import RandomButton from '../../components/buttons/random-button/RandomButton';
 import IntervalInput from '../../components/interval-input/IntervalInput';
 import GenerationCount from '../../components/generation-count/GenerationCount';
-import React from 'react';
+import SaveButton from '../../components/buttons/save-button/SaveButton';
+
 
 const Main = () => {
-  const { grid, isRunning, onClickStarted , onClickCell } = useMainController();
+  const { grid, isRunning, speed, generationCount,onClickStarted, 
+    onClickCell, onClickResetButton, onClickRandomButton,
+    handleChangeInterval, onClickSaveButton, 
+  } = useMainController();
   console.log(grid)
+ 
   return (
     <div className="main">
       <GridComponent grid={grid} onClickCell={onClickCell}/>
       <div className="options">
         <div className="buttons">
           <StartButton isRunning={isRunning} onClickStarted={onClickStarted}/>
-          <ResetButton isRunning={isRunning} onClickStarted={onClickStarted}/>
-          <RandomButton isRunning={isRunning} onClickStarted={onClickStarted}/>
+          <ResetButton onClickResetButton={onClickResetButton}/>
+          <RandomButton onClickRandomButton={onClickRandomButton}/>
         </div>
-          <IntervalInput />
-          <GenerationCount generateCount={0}/>
+          <IntervalInput speed={speed} handleChangeInterval={handleChangeInterval}/>
+          <GenerationCount generationCount={generationCount}/>
+          <SaveButton onClickSaveButton={onClickSaveButton}/>
       </div>
     </div>
   );

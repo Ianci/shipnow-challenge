@@ -1,7 +1,6 @@
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { numCols, numRows, positions } from '../assets/constants';
-import { generateGrid } from '../assets/utils';
 import {IUseMainControllerOutput} from './main.interfaces';
 import useInterval from './useInterval';
 
@@ -9,14 +8,48 @@ export const useMainController = (): IUseMainControllerOutput => {
   const [speed, setSpeed] = useState(300);
   const [generationCount, setGenerationCount] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+ 
+
+  //Creando un multidimensional array y guardándolo en un state
+ 
+ const generateEmptyGrid = (): number[][] => {
+  const rowsArray= [];
+  for (let i = 0; i < numRows; i++) {
+    rowsArray.push(Array.from(Array(numCols), () => 0));
+  };
+  return rowsArray;
+  };
+
   const [grid, setGrid] = useState(() => {
-    return generateGrid()
+    return generateEmptyGrid()
   });
+
+  
+  //Generate random grid
+   const generateRandomGrid = (): number[][] => {
+    const rowsArray= [];
+    for (let i = 0; i < numRows; i++) {
+      rowsArray.push(Array.from(Array(numCols), () => Math.random() > 0.5 ? 1 : 0));
+    }
+    console.log(rowsArray)
+    return rowsArray as number[][];
+  };
+
+  //LocalStorage grid
+  useEffect(() => {
+    const localStorageGrid = localStorage.getItem('grid');
+    if(localStorageGrid){
+      setGrid(JSON.parse(localStorageGrid))
+    }
+  }, [])
+
+
   //Como estamos ejecutando la función una única vez y necesitamos tener 
   //actualizado en todo momento nuestro isRunning que en este caso es nuestra Kill condition
   //lo referenciamos ya que la función no tiene forma de saber cuándo este isRunning pasa de true a false o visceversa
   const isRunningRef = useRef(isRunning);
   isRunningRef.current = isRunning;
+
   //Permitir al usuario pintar o despintar celdas
   const onClickCell = (mappedGrid: number[][], i: number , k: number) => {
     let userGrid: number[][] = JSON.parse(JSON.stringify(grid));
@@ -55,20 +88,64 @@ export const useMainController = (): IUseMainControllerOutput => {
     setGrid(newGrid)
   }, [])
 
+ /*  const isOneIntheArray = (element: number) => element > 0
+  const handleStopCount = (grid: number[][]) => {
+    grid.forEach((x) => {
+      x.map((item) => {
+        console.table(item)
+      })
+    })
+  /*   console.log(isTrue) */
+ /*  }  */
+  //Allow user change the intervals
+  const handleChangeInterval = (e: any) => {
+    setSpeed(Number(e.target.value))
+  }
+
+  //Generation count
+  const handleGenerationCount = () => {
+    if(isRunningRef.current){
+      setGenerationCount(generationCount + 1)
+    }
+  }
   useInterval(() => {
     handleStartGame(grid)
+    handleGenerationCount()
   }, speed)
 
+  //Start grid
   const onClickStarted = () => {
     setIsRunning(!isRunning)
     if(!isRunning){
       isRunningRef.current = true
     }
   }
+  //Random grid
+  const onClickRandomButton = () => {
+    setGrid(generateRandomGrid())
+    setGenerationCount(0)
+  }
+  //Reset grid
+  const onClickResetButton = () => {
+    setGrid(generateEmptyGrid())
+    localStorage.removeItem('grid')
+    setGenerationCount(0)
+  }
+  //Save grid pattern
+  const onClickSaveButton = () => {
+    localStorage.setItem('grid', JSON.stringify(grid) as string)
+    alert('Guardado!')
+  }
   return {
     grid,
+    speed,
     isRunning,
+    generationCount,
     onClickCell,
-    onClickStarted
+    onClickStarted,
+    onClickResetButton,
+    onClickRandomButton,
+    onClickSaveButton,
+    handleChangeInterval,
   };
 }
