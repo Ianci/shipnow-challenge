@@ -1,11 +1,11 @@
 export interface IResetButtonProps {
-    isRunning: boolean;
-    onClickStarted: () => void;
+    onClickResetButton: () => void;
 }
-const ResetButton = ({isRunning, onClickStarted}: IResetButtonProps) => {
+const ResetButton = ({onClickResetButton}: IResetButtonProps) => {
     return (
         <button
-        onClick={() => onClickStarted()}
+        className="button"
+        onClick={() => onClickResetButton()}
         >
             Reset
         </button>
